@@ -74,6 +74,25 @@ map.on('load',function(){
   })
 });
 
+map.on('load',function(){
+  // I call the layer for NYCHA is 'nycha_layer'.
+  map.addSource('nycha_layer',{
+    'type':'vector',
+    'url': 'mapbox://idhlee.cnoqohg6'
+  });
+  map.addLayer({
+    'id':'housingdev_zones',
+    'type':'fill',
+    'source':'nycha_layer',
+    'source-layer':'Map_of_NYCHA_Developments-215qrf',
+    'paint':{
+      'fill-color':'#ffd400',
+      'fill-opacity': 0.7
+    }
+  })
+});
+
+
 </script>
 
 </body>
