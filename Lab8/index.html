@@ -43,55 +43,74 @@
 
 	</div>
   <script>
-  // You'll be inserting your JS code to initialize your map here
-  mapboxgl.accessToken = 'YOUR-MAPBOX-TOKEN';
-  const map = new mapboxgl.Map({
-    container: 'map', // container id
-    style: 'mapbox://styles/iamwfx/cl9519asg003414pl56w7ov95', // replace this with your style URL
-    center: [-73.935242, 40.730610], // The convention for coordinates is  typically [long, lat]
-    zoom: 13,
-    // maxZoom: 22,
-    // minZoom: 12
+// You'll be inserting your JS code to initialize your map here
+// Within a script, you comment using two backslashes.
+mapboxgl.accessToken = 'pk.eyJ1IjoiaWRobGVlIiwiYSI6ImNsOHg1NnMyNjAzNHAzbnBiMmE4aWk5cmwifQ.hEE_woiOjaNEIx0acw8OWQ'
+const map = new mapboxgl.Map({
+  container: 'map', // container id
+  style: 'mapbox://styles/idhlee/cl8yyggo0000w15o9otcw1v77',
+  center: [-73.935242, 40.730610],
+  zoom: 12,
+  minZoom: 12,
+  maxZoom: 15
+});
+
+map.on('load',function(){
+  // AMR5E001 : Poverty Status in the Past 12 Months by Household Type by Age of Householder
+  map.addSource('census_Layer',{
+    'type':'vector',
+    'url': 'mapbox://iamwfx.6nowkujs'
   });
-
-  map.on('load',function(){
-    // Give your layer's source a nickname you'll remember easily.
-    map.addSource('sandyLayer',{
-      'type':'vector',
-      'url': 'mapbox://iamwfx.bpjzmy2b'
-    });
-
-    map.addSource('nychaLayer',{
-      'type':'vector',
-      'url': 'mapbox://iamwfx.28ut4nij'
-    });
-
-    // add a new layer with your polygons
-
-    map.addLayer({
-      'id':'nychaBuildings',
+  map.addLayer({
+      'id':'poverty_Level',
       'type':'fill',
-      'source':'nychaLayer',
-      'source-layer':'Map_of_NYCHA_Developments-7i6vok',
+      'source':'census_Layer',
+      'source-layer':'nyc_blck_grp_2020_wcensus_dro-4db43i',
       'paint':{
-        'fill-color':'red',
+        'fill-color':'green',
         'fill-opacity': 0.5
       }
-    })
-
-    map.addLayer({
-      'id':'floodZones',
-      'type':'fill',
-      'source':'sandyLayer',
-      'source-layer':'Sandy_Inundation_Zone-4qcajo',
-      'paint':{
-        'fill-color':'#00158f',
-        'fill-opacity': 0.5
-      }
-    });
   });
-  // Within a script, you comment using two backslashes.
-  </script>
+
+map.on('load',function(){
+  // Give your layer's source a nickname you'll remember easily. I've called my source `sandy_layer`.
+  map.addSource('sandy_layer',{
+    'type':'vector',
+    'url': 'mapbox://idhlee.799zqp7f'
+  });
+  // add a new layer with your polygons
+  map.addLayer({
+    'id':'flood_zones',
+    'type':'fill',
+    'source':'sandy_layer',
+    'source-layer':'Sandy_Inundation_Zone-292ptz',
+    'paint':{
+      'fill-color':'#00158f',
+      'fill-opacity': 0.5
+    }
+  })
+});
+
+map.on('load',function(){
+  // I call the layer for NYCHA is 'nycha_layer'.
+  map.addSource('nycha_layer',{
+    'type':'vector',
+    'url': 'mapbox://idhlee.cnoqohg6'
+  });
+  map.addLayer({
+    'id':'housingdev_zones',
+    'type':'fill',
+    'source':'nycha_layer',
+    'source-layer':'Map_of_NYCHA_Developments-215qrf',
+    'paint':{
+      'fill-color':'#ffd400',
+      'fill-opacity': 0.7
+    }
+  })
+});
+
+
+</script>
 </body>
 
 </html>
