@@ -57,14 +57,14 @@ const map = new mapboxgl.Map({
 
 map.on('load',function(){
   // AMR5E001 : Poverty Status in the Past 12 Months by Household Type by Age of Householder
-  map.addSource('census_Layer',{
+  map.addSource('censusLayer',{
     'type':'vector',
     'url': 'mapbox://iamwfx.6nowkujs'
   });
   map.addLayer({
-      'id':'poverty_Level',
+      'id':'povertyLevel',
       'type':'fill',
-      'source':'census_Layer',
+      'source':'censusLayer',
       'source-layer':'nyc_blck_grp_2020_wcensus_dro-4db43i',
       'paint':{
         'fill-color':'green',
@@ -72,8 +72,6 @@ map.on('load',function(){
       }
   });
 
-map.on('load',function(){
-  // Give your layer's source a nickname you'll remember easily. I've called my source `sandy_layer`.
   map.addSource('sandy_layer',{
     'type':'vector',
     'url': 'mapbox://idhlee.799zqp7f'
@@ -89,10 +87,7 @@ map.on('load',function(){
       'fill-opacity': 0.5
     }
   })
-});
 
-map.on('load',function(){
-  // I call the layer for NYCHA is 'nycha_layer'.
   map.addSource('nycha_layer',{
     'type':'vector',
     'url': 'mapbox://idhlee.cnoqohg6'
@@ -107,8 +102,7 @@ map.on('load',function(){
       'fill-opacity': 0.7
     }
   })
-});
-
+})
 
 </script>
 </body>
